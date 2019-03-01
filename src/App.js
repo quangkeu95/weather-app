@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Home from "./app/home";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        abc
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div className="App">
+				<Home />
+			</div>
+		);
+	}
 }
 
 export default App;
