@@ -1,20 +1,40 @@
-import types from "./types";
 import axios from "axios";
 
+import types from "./types";
+import creators from "./actions";
+
 const fetchCity = city => {
-	console.log(city);
 	return dispatch => {
-		// const url = `http://gd.geobytes.com/AutoCompleteCity?q=${city}`;
 		const url = `https://quangkeu95-city-api.herokuapp.com/city?name_like=^${city}`;
 
+		dispatch({ type: types.FETCH_CITY_REQUEST });
 		axios.get(url).then(
 			function(response) {
-				console.log(response);
+				if (response.status === 200) {
+					dispatch({
+						type: types.FETCH_CITY_SUCCESS,
+						payload: response.data
+					});
+				} else {
+					dispatch({
+						type: types.FETCH_CITY_ERROR,
+						payload: "error"
+					});
+				}
 			},
 			function(error) {
-				console.log(error);
+				dispatch({
+					type: types.FETCH_CITY_ERROR,
+					payload: error
+				});
 			}
 		);
+	};
+};
+
+const fetchCurrentWeather = cityId => {
+	return dispatch => {
+		const url = ``;
 	};
 };
 

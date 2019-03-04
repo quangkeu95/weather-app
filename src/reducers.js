@@ -1,14 +1,8 @@
 import { combineReducers } from "redux";
-
-const defaultReducer = (state = {}, action) => {
-	switch (action) {
-		default:
-			return state;
-	}
-};
+import homeReducer from "./app/home/duck";
 
 const rootReducers = combineReducers({
-	home: defaultReducer
+	home: homeReducer
 });
 
 export default rootReducers;

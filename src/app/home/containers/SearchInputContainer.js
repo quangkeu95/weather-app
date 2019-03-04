@@ -10,12 +10,21 @@ import SearchInputComponent from "../components/SearchInputComponent";
 // 	};
 // };
 
+const mapStateToProps = state => {
+	const { isCityFetching, cities } = state.home;
+
+	return {
+		isFetching: isCityFetching,
+		cities
+	};
+};
+
 const mapDispatchToProps = {
 	onSearch: homeOperations.fetchCity
 };
 
 const SearchInputContainer = connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(SearchInputComponent);
 
