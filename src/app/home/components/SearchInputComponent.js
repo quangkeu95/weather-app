@@ -1,13 +1,31 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { Input } from "antd";
+import { Input, AutoComplete, Button, Icon } from "antd";
+import _ from "lodash";
 
-const Search = Input.Search;
+import styled from "styled-components";
+
+// const Search = Input.Search;
 
 const SearchInput = props => {
 	const { onSearch } = props;
+
+	const onSearchComponent = value => {
+		_.debounce(event => {
+			onSearch(value);
+		}, 1500);
+	};
+
 	return (
-		<Search placeholder="Location..." onSearch={value => onSearch(value)} />
+		<Fragment>
+			<AutoComplete
+				placeholder="Location..."
+				onSearch={value => onSearchComponent(value)}
+			/>
+			<Button type="primary">
+				<Icon type="search" />
+			</Button>
+		</Fragment>
 	);
 };
 

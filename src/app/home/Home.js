@@ -1,5 +1,5 @@
 import React from "react";
-import SearchInput from "./components/SearchInput";
+import SearchInput from "./containers/SearchInputContainer";
 
 const Home = props => {
 	return (
