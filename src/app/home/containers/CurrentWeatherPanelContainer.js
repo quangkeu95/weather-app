@@ -5,9 +5,9 @@ import CurrentWeatherPanelComponent from "../components/CurrentWeatherPanelCompo
 import { homeSelectors } from "../duck";
 
 const mapStateToProps = state => {
-	const { isFetching, currentWeather } = homeSelectors.weatherSelector(state);
+	const { isFetching } = homeSelectors.weatherSelector(state);
 
-	// const location = homeSelectors.getWeatherLocationSelector(state);
+	const currentWeather = homeSelectors.getCurrentWeatherSelector(state);
 
 	return {
 		isFetching,

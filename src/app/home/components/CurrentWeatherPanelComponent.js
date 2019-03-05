@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 
 import { Card, Row, Col, Statistic, Spin, Icon } from "antd";
 import Spinner from "../../common/Spinner";
-import styled from "styled-components";
+
+const { Meta } = Card;
 
 const ColWrapper = styled(Col)`
 	/* border: 1px solid black; */
@@ -15,9 +17,39 @@ const ColWrapper = styled(Col)`
 `;
 
 const DisplayPanel = props => {
-	const { name, country } = props.sys;
+	const {
+		city,
+		country,
+		datetimeInString,
+		weatherIcon,
+		tempInCelsius
+	} = props;
 
-	return <span>{`${city}, ${country}`}</span>;
+	return (
+		<div>
+			<p>{`${city}, ${country}`}</p>
+			<p>{datetimeInString}</p>
+			<Row type="flex" justify="center">
+				<Col span={8}>
+					<Row type="flex" justify="center">
+						<Col span={8}>
+							<img
+								src={`http://openweathermap.org/img/w/${weatherIcon}.png`}
+								alt="error"
+							/>
+						</Col>
+						<Col span={8}>
+							<Statistic
+								value={tempInCelsius}
+								suffix="&#8451;"
+								precision={0}
+							/>
+						</Col>
+					</Row>
+				</Col>
+			</Row>
+		</div>
+	);
 };
 
 const CurrentWeatherPanelComponent = props => {
@@ -27,7 +59,7 @@ const CurrentWeatherPanelComponent = props => {
 		<Row type="flex" justify="center" align="middle">
 			<ColWrapper span={20}>
 				{isFetching && <Spinner />}
-				{!isFetching && Object.keys(currentWeather).length > 0 && (
+				{!isFetching && currentWeather.datetime !== undefined && (
 					<DisplayPanel {...currentWeather} />
 				)}
 				{/* {iconId && (
@@ -38,8 +70,6 @@ const CurrentWeatherPanelComponent = props => {
 				)} */}
 			</ColWrapper>
 		</Row>
-		// <Card cover={}>
-		// </Card>
 	);
 };
 

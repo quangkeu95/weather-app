@@ -1,5 +1,7 @@
-import types from "./types";
 import { combineReducers } from "redux";
+
+import types from "./types";
+import utils from "../../utils";
 
 const cityInitialState = {
 	isFetching: false,
@@ -9,7 +11,20 @@ const cityInitialState = {
 
 const weatherInitialState = {
 	isFetching: false,
-	currentWeather: {}
+	currentWeather: {
+		city: "",
+		country: "",
+		temp: undefined,
+		humidity: undefined,
+		pressure: undefined,
+		windSpeed: undefined,
+		sunriseTime: undefined,
+		sunsetTime: undefined,
+		weatherIcon: "",
+		weatherTitle: "",
+		weatherDesc: "",
+		datetime: undefined
+	}
 };
 
 const weatherReducer = (state = weatherInitialState, action) => {
@@ -23,7 +38,7 @@ const weatherReducer = (state = weatherInitialState, action) => {
 		case types.FETCH_CURRENT_WEATHER_SUCCESS: {
 			return {
 				...state,
-				currentWeather: JSON.parse(JSON.stringify(action.payload)),
+				currentWeather: utils.transformCurrentWeather(action.payload),
 				isFetching: false
 			};
 		}
