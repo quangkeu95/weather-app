@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { homeOperations } from "../duck";
+import { homeOperations, homeSelectors } from "../duck";
 
 import SearchInputComponent from "../components/SearchInputComponent";
 
@@ -11,16 +11,19 @@ import SearchInputComponent from "../components/SearchInputComponent";
 // };
 
 const mapStateToProps = state => {
-	const { isCityFetching, cities } = state.home;
+	const { isFetching, cities, cityId } = homeSelectors.citySelector(state);
 
 	return {
-		isFetching: isCityFetching,
-		cities
+		isFetching,
+		cities,
+		cityId
 	};
 };
 
 const mapDispatchToProps = {
-	onSearch: homeOperations.fetchCity
+	onSearch: homeOperations.fetchCity,
+	onSelect: homeOperations.selectCity,
+	onFetchWeather: homeOperations.fetchWeather
 };
 
 const SearchInputContainer = connect(

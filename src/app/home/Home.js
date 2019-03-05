@@ -1,11 +1,15 @@
 import React from "react";
 import SearchInput from "./containers/SearchInputContainer";
+import HomeLayout from "./components/HomeLayoutComponent";
+
+import CurrentWeatherPanel from "./containers/CurrentWeatherPanelContainer";
 
 const Home = props => {
 	return (
-		<div>
+		<HomeLayout>
 			<SearchInput />
-		</div>
+			<CurrentWeatherPanel />
+		</HomeLayout>
 	);
 };
 

@@ -1,9 +1,10 @@
 import types from "./types";
 
-const fetchingCities = () => ({
-	type: types.FETCH_CITY_REQUEST
+const selectCity = cityId => ({
+	type: types.SELECT_CITY,
+	payload: cityId.split("-")[0]
 });
 
 export default {
-	fetchingCities
+	selectCity
 };

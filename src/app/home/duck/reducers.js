@@ -1,30 +1,36 @@
 import types from "./types";
+import { combineReducers } from "redux";
 
-const initialState = {
-	isCityFetching: false,
-	cities: []
+const cityInitialState = {
+	isFetching: false,
+	cities: [],
+	cityId: undefined
 };
 
-const homeReducer = (state = initialState, action) => {
+const weatherInitialState = {
+	isFetching: false,
+	currentWeather: {}
+};
+
+const weatherReducer = (state = weatherInitialState, action) => {
 	switch (action.type) {
-		case types.FETCH_CITY_REQUEST: {
+		case types.FETCH_CURRENT_WEATHER_REQUEST: {
 			return {
 				...state,
-				isCityFetching: true
+				isFetching: true
 			};
 		}
-		case types.FETCH_CITY_SUCCESS: {
+		case types.FETCH_CURRENT_WEATHER_SUCCESS: {
 			return {
 				...state,
-				cities: action.payload,
-				isCityFetching: false
+				currentWeather: JSON.parse(JSON.stringify(action.payload)),
+				isFetching: false
 			};
 		}
-		case types.FETCH_CITY_ERROR: {
+		case types.FETCH_CURRENT_WEATHER_ERROR: {
 			return {
 				...state,
-				cities: [],
-				isCityFetching: false
+				isFetching: false
 			};
 		}
 		default:
@@ -32,4 +38,40 @@ const homeReducer = (state = initialState, action) => {
 	}
 };
 
-export default homeReducer;
+const cityReducer = (state = cityInitialState, action) => {
+	switch (action.type) {
+		case types.FETCH_CITY_REQUEST: {
+			return {
+				...state,
+				isFetching: true
+			};
+		}
+		case types.FETCH_CITY_SUCCESS: {
+			return {
+				...state,
+				cities: action.payload,
+				isFetching: false
+			};
+		}
+		case types.FETCH_CITY_ERROR: {
+			return {
+				...state,
+				cities: [],
+				isFetching: false
+			};
+		}
+		case types.SELECT_CITY: {
+			return {
+				...state,
+				cityId: action.payload
+			};
+		}
+		default:
+			return state;
+	}
+};
+
+export default combineReducers({
+	city: cityReducer,
+	weather: weatherReducer
+});
