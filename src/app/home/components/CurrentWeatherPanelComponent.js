@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 
-import { Row, Col, Statistic, Icon } from "antd";
+import { Row, Col, Statistic } from "antd";
 import Spinner from "../../common/Spinner";
 
 import { ReactComponent as SvgDropletIcon } from "../../assets/droplet.svg";

@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Row, Col, Layout } from "antd";
+import { Layout } from "antd";
 import styled from "styled-components";
 
 const { Header, Content, Footer } = Layout;
 
-const HomeMain = styled(Col)`
+const HomeMain = styled.div`
 	height: 100vh;
 	background-color: #fff;
 `;

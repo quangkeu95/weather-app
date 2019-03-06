@@ -1,6 +1,6 @@
-import React, { Fragment } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Input, AutoComplete, Button, Icon } from "antd";
+import { AutoComplete, Button, Icon } from "antd";
 import { debounce } from "lodash";
 
 import styled from "styled-components";
@@ -9,10 +9,6 @@ const Option = AutoComplete.Option;
 
 const SearchInputWrapper = styled.div`
 	padding: 30px 0;
-
-	/* .ant-input .ant-select-search__field {
-			width
-		} */
 `;
 
 const SearchInput = props => {
