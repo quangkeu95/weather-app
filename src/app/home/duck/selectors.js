@@ -12,16 +12,24 @@ const getCurrentWeatherSelector = createSelector(
 			return new Date(second * 1000);
 		};
 
-		const sunsetTimeInString = `${convertSecondToDate(
-			currentWeather.sunsetTime
-		).getHours()}, ${convertSecondToDate(
-			currentWeather.sunsetTime
-		).getMinutes()}`;
-		const sunriseTimeInString = `${convertSecondToDate(
-			currentWeather.sunsetTime
-		).getHours()}, ${convertSecondToDate(
-			currentWeather.sunsetTime
-		).getMinutes()}`;
+		const convertTime = time => {
+			if (time < 10) {
+				return `0${time}`;
+			}
+			return time;
+		};
+
+		const sunsetTime = convertSecondToDate(currentWeather.sunsetTime);
+		const sunriseTime = convertSecondToDate(currentWeather.sunriseTime);
+
+		const sunsetTimeInString = `${convertTime(
+			sunsetTime.getHours()
+		)}:${convertTime(sunsetTime.getMinutes())}`;
+
+		const sunriseTimeInString = `${convertTime(
+			sunriseTime.getHours()
+		)}:${convertTime(sunriseTime.getMinutes())}`;
+
 		const datetimeInString = `${convertSecondToDate(
 			currentWeather.datetime
 		).toLocaleTimeString()}, ${convertSecondToDate(

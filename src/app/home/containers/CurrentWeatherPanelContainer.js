@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import CurrentWeatherPanelComponent from "../components/CurrentWeatherPanelComponent";
-import { homeSelectors } from "../duck";
+import { homeSelectors, homeOperations } from "../duck";
 
 const mapStateToProps = state => {
 	const { isFetching } = homeSelectors.weatherSelector(state);
@@ -15,9 +15,13 @@ const mapStateToProps = state => {
 	};
 };
 
+const mapDispatchToProps = {
+	onFetchWeather: homeOperations.fetchWeather
+};
+
 const CurrentWeatherPanelContainer = connect(
 	mapStateToProps,
-	null
+	mapDispatchToProps
 )(CurrentWeatherPanelComponent);
 
 export default CurrentWeatherPanelContainer;

@@ -1,28 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { Card, Row, Col, Statistic, Spin, Icon } from "antd";
+import { Row, Col, Statistic, Icon } from "antd";
 import Spinner from "../../common/Spinner";
 
-const { Meta } = Card;
-
-const ColWrapper = styled(Col)`
-	/* border: 1px solid black; */
-	border-radius: 4px;
-	-webkit-box-shadow: 3px 3px 10px 0px rgba(194, 194, 194, 0.6);
-	-moz-box-shadow: 3px 3px 10px 0px rgba(194, 194, 194, 0.6);
-	box-shadow: 3px 3px 10px 0px rgba(194, 194, 194, 0.6);
-	height: 40vh;
-`;
+import { ReactComponent as SvgDropletIcon } from "../../assets/droplet.svg";
+import { ReactComponent as SvgWindIcon } from "../../assets/wind.svg";
+import { ReactComponent as SvgSunriseIcon } from "../../assets/sunrise.svg";
+import { ReactComponent as SvgSunsetIcon } from "../../assets/sunset.svg";
 
 const DisplayPanel = props => {
 	const {
 		city,
-		country,
+		country = "",
 		datetimeInString,
 		weatherIcon,
-		tempInCelsius
+		tempInCelsius,
+		weatherTitle,
+		weatherDesc,
+		sunriseTimeInString,
+		sunsetTimeInString,
+		humidity,
+		windSpeed
 	} = props;
 
 	return (
@@ -30,20 +30,72 @@ const DisplayPanel = props => {
 			<p>{`${city}, ${country}`}</p>
 			<p>{datetimeInString}</p>
 			<Row type="flex" justify="center">
-				<Col span={8}>
+				<Col xs={24} sm={16} md={10}>
 					<Row type="flex" justify="center">
-						<Col span={8}>
-							<img
-								src={`http://openweathermap.org/img/w/${weatherIcon}.png`}
-								alt="error"
-							/>
+						<Col xs={24}>
+							<Row gutter={8}>
+								<Col span={12}>
+									<img
+										src={`http://openweathermap.org/img/w/${weatherIcon}.png`}
+										alt="error"
+									/>
+								</Col>
+								<Col span={12} style={{ textAlign: "start" }}>
+									<div style={{ fontWeight: "700" }}>
+										{weatherTitle}
+									</div>
+									<div>{weatherDesc}</div>
+								</Col>
+							</Row>
 						</Col>
-						<Col span={8}>
-							<Statistic
-								value={tempInCelsius}
-								suffix="&#8451;"
-								precision={0}
-							/>
+						<Col xs={24}>
+							<Row style={{ padding: "8px 0" }}>
+								<Statistic
+									value={tempInCelsius}
+									valueStyle={{ fontSize: "36px" }}
+									suffix="&#8451;"
+									precision={0}
+								/>
+							</Row>
+						</Col>
+						<Col xs={24}>
+							<Row>
+								<Col span={12}>
+									<Statistic
+										title="Humidity"
+										value={humidity}
+										prefix={<SvgDropletIcon />}
+										suffix="%"
+									/>
+								</Col>
+								<Col span={12}>
+									<Statistic
+										title="Wind Speed"
+										precision={1}
+										value={windSpeed}
+										prefix={<SvgWindIcon />}
+										suffix="m/s"
+									/>
+								</Col>
+							</Row>
+						</Col>
+						<Col xs={24}>
+							<Row>
+								<Col span={12}>
+									<Statistic
+										title="Sunrise Time"
+										value={sunriseTimeInString}
+										prefix={<SvgSunriseIcon />}
+									/>
+								</Col>
+								<Col span={12}>
+									<Statistic
+										title="Sunset Time"
+										value={sunsetTimeInString}
+										prefix={<SvgSunsetIcon />}
+									/>
+								</Col>
+							</Row>
 						</Col>
 					</Row>
 				</Col>
@@ -53,29 +105,29 @@ const DisplayPanel = props => {
 };
 
 const CurrentWeatherPanelComponent = props => {
-	const { isFetching, currentWeather } = props;
+	const { isFetching, currentWeather, onFetchWeather } = props;
+
+	useEffect(() => {
+		// Fetch weather for Ha Noi
+		onFetchWeather("1581130");
+	}, []);
 
 	return (
 		<Row type="flex" justify="center" align="middle">
-			<ColWrapper span={20}>
+			<Col span={20}>
 				{isFetching && <Spinner />}
 				{!isFetching && currentWeather.datetime !== undefined && (
 					<DisplayPanel {...currentWeather} />
 				)}
-				{/* {iconId && (
-					<img
-						alt="error loading image"
-						src={`http://openweathermap.org/img/w/${iconId}.png`}
-					/>
-				)} */}
-			</ColWrapper>
+			</Col>
 		</Row>
 	);
 };
 
 CurrentWeatherPanelComponent.propTypes = {
 	isFetching: PropTypes.bool,
-	currentWeather: PropTypes.object
+	currentWeather: PropTypes.object,
+	onFetchWeather: PropTypes.func
 };
 
 export default CurrentWeatherPanelComponent;

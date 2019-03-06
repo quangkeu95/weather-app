@@ -6,7 +6,7 @@ import styled from "styled-components";
 const { Header, Content, Footer } = Layout;
 
 const HomeMain = styled(Col)`
-	height: 90vh;
+	height: 100vh;
 	background-color: #fff;
 `;
 
@@ -17,7 +17,9 @@ const HomeLayoutComponent = props => {
 			<Content>
 				<HomeMain>{props.children}</HomeMain>
 			</Content>
-			<Footer>Weather App</Footer>
+			<Footer>
+				Weather App - All times are displayed in local timezone
+			</Footer>
 		</Layout>
 	);
 };
