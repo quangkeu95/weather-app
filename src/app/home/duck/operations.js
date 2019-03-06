@@ -39,7 +39,7 @@ const fetchCity = city => {
 
 const fetchWeather = cityId => {
 	return dispatch => {
-		const url = `http://api.openweathermap.org/data/2.5/weather?appId=${WEATHER_API_KEY}&id=${cityId}`;
+		const url = `https://api.openweathermap.org/data/2.5/weather?appId=${WEATHER_API_KEY}&id=${cityId}`;
 
 		dispatch({ type: types.FETCH_CURRENT_WEATHER_REQUEST });
 		axios.get(url).then(
